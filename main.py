@@ -4,7 +4,9 @@ import fileinput
 import functions
 import time
 
-print(time.strftime("Current Date and Time is = " "%A %D %T"))
+now = time.strftime("Current Date and Time is = " "%A %D %T")
+
+print("Its is", now)
 user_prompt = "Type add or show or edit or complete or exit:"
 
 while True:
