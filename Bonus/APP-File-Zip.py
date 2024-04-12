@@ -1,37 +1,27 @@
 import PySimpleGUI as sg
-import zipfile
-import os
 
-def compress_files(file_list, destination_folder):
-    zip_file_path = os.path.join(destination_folder, 'compressed_files.zip')
-    with zipfile.ZipFile(zip_file_path, 'w') as zipf:
-        for file_path in file_list:
-            zipf.write(file_path, os.path.basename(file_path))
-    return zip_file_path
+lable1 = sg.Text("Select Files to Compress:")
+input1 = sg.Input()
+choose_button1 = sg.FilesBrowse("Choose", key="files")
 
-layout = [
-    [sg.Text("Select Files to compress:")],
-    [sg.Input(key="-FILES-", enable_events=True, visible=False), sg.FilesBrowse("Choose", key="-BROWSE-")],
-    [sg.Listbox(values=[], size=(60, 6), key="-FILELIST-")],
-    [sg.Text("Select Destination Folder:")],
-    [sg.Input(key="-FOLDER-"), sg.FolderBrowse("Choose")],
-    [sg.Button("Compress"), sg.Button("Exit")]
-]
+label2 = sg.Text("Select destination folder:")
+input2 = sg.Input()
+choose_button2 = sg.FolderBrowse("Choose", key="folder")
 
-window = sg.Window("File Compressor", layout)
+compress_button = sg.Button("Compres")
 
+window = sg.Window("File Comprossor",
+                   layout=[[lable1, input1, choose_button1],
+                           [label2, input2, choose_button2],
+                           [compress_button]
+                           ]
+                   )
 while True:
     event, values = window.read()
-    if event == sg.WINDOW_CLOSED or event == "Exit":
-        break
-    elif event == "-BROWSE-":
-        selected_files = values["-BROWSE-"].split(';')
-        window["-FILELIST-"].update(selected_files)
-    elif event == "Compress":
-        file_list = values["-FILELIST-"]
-        destination_folder = values["-FOLDER-"]
-        if file_list and destination_folder:
-            zip_file_path = compress_files(file_list, destination_folder)
-            sg.popup(f"Files compressed successfully!\nZip file saved at:\n{zip_file_path}")
-
+    print(event, values)
+    filepaths = values["files"].split(";")
+    folder = values["folder"]
+    print(filepaths,folder)
 window.close()
+
+
