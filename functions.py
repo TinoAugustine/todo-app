@@ -1,4 +1,4 @@
-def get_todos(filepath='files/todos.txt'):
+def get_todos(filepath='todos.txt'):
     """Read the Text file and returns the
     To-Dos Items.
     """
@@ -6,7 +6,7 @@ def get_todos(filepath='files/todos.txt'):
         todos_local = file.readlines()
     return todos_local
 
-def write_todos(todos_arg, filepath='files/todos.txt'):
+def write_todos(todos_arg, filepath='todos.txt'):
     """Write the  To-Dos Items
     To the Text files.
     """
